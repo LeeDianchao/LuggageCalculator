@@ -22,18 +22,18 @@ public class SimpleTestTest {
         System.out.println("*****Test over*****");
     }
     
-//  1£º²âÊÔÓÃÀıĞòºÅ
-//	2£ºº½Çø
-//	3£º²ÕÊÒ×ùÎ»
-//	4£ºÌØ±ğ³Ë¿Í
-//	5£º¾­¼Ã²ÕÆ±¼Û
-//	6£ºº½ÏßÊÇ·ñÉæ¼°ÃÀ¹ú
-//	7£ºĞĞÀîĞòºÅ
-//	8£ºÖØÁ¿
-//	9£º³¤
-//	10£º¿í
-//	11£º¸ß
-//	12£ºÔ¤²âÖµ
+//  1ï¼šæµ‹è¯•ç”¨ä¾‹åºå·
+//	2ï¼šèˆªåŒº
+//	3ï¼šèˆ±å®¤åº§ä½
+//	4ï¼šç‰¹åˆ«ä¹˜å®¢
+//	5ï¼šç»æµèˆ±ç¥¨ä»·
+//	6ï¼šèˆªçº¿æ˜¯å¦æ¶‰åŠç¾å›½
+//	7ï¼šè¡Œæåºå·
+//	8ï¼šé‡é‡
+//	9ï¼šé•¿
+//	10ï¼šå®½
+//	11ï¼šé«˜
+//	12ï¼šé¢„æµ‹å€¼
     @DataProvider(name="usecase")
     public Object[][] UseCase(){
         return new Object[][]{
@@ -54,18 +54,18 @@ public class SimpleTestTest {
     
     @Test(dataProvider="usecase")
     public void verifyUser(int id, int flighttype, int seattype, int special, int eairfare, int isusa, int no, float weight, float length, float width, float height, float expectresult){
-        System.out.println("case" + id);
-        System.out.println("º½Çø:" + flighttype);
-        System.out.println("²ÕÊÒ×ùÎ»:" + seattype);
-        System.out.println("ÌØ±ğ³Ë¿Í:" + special);
-        System.out.println("¾­¼Ã²ÕÆ±¼Û:" + eairfare);
-        System.out.println("º½ÏßÊÇ·ñÉæ¼°ÃÀ¹ú:" + isusa);
-        System.out.println("ĞĞÀîĞòºÅ:" + no);
-        System.out.println("ÖØÁ¿(KG):" + weight);
-        System.out.println("³¤(cm):" + length);
-        System.out.println("¿í(cm):" + width);
-        System.out.println("¸ß(cm):" + height);
-        System.out.println("Ô¤²âÖµ:" + id);
+        System.out.println("case:" + id);
+        System.out.println("Navigation area:" + flighttype);
+        System.out.println("Cabin or seat:" + seattype);
+        System.out.println("Special passenger:" + special);
+        System.out.println("Economy fare:" + eairfare);
+        System.out.println("Contain USA:" + isusa);
+        System.out.println("Baggage number:" + no);
+        System.out.println("Weight(KG):" + weight);
+        System.out.println("Length(cm):" + length);
+        System.out.println("Wide(cm):" + width);
+        System.out.println("Height(cm):" + height);
+        System.out.println("Expect value:" + id);
         System.out.println("------------------------------------");
 
         Person person = new Person(flighttype,seattype,special,eairfare,isusa);
