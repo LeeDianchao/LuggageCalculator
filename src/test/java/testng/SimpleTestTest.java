@@ -12,6 +12,7 @@ import data.Luggage;
 import data.Person;
 
 import java.io.File;
+import java.util.List;
 
 public class SimpleTestTest {
     private Person person;
@@ -27,55 +28,64 @@ public class SimpleTestTest {
         System.out.println("*****Test over*****");
     }
     
-//  1ï¼šæµ‹è¯•ç”¨ä¾‹åºå·
-//	2ï¼šèˆªåŒº
-//	3ï¼šèˆ±å®¤åº§ä½
-//	4ï¼šç‰¹åˆ«ä¹˜å®¢
-//	5ï¼šç»æµèˆ±ç¥¨ä»·
-//	6ï¼šèˆªçº¿æ˜¯å¦æ¶‰åŠç¾å›½
-//	7ï¼šè¡Œæåºå·
-//	8ï¼šé‡é‡
-//	9ï¼šé•¿
-//	10ï¼šå®½
-//	11ï¼šé«˜
-//	12ï¼šé¢„æµ‹å€¼
+//  1£º²âÊÔÓÃÀıĞòºÅ
+//	2£ºº½Çø
+//	3£º²ÕÊÒ×ùÎ»
+//	4£ºÌØ±ğ³Ë¿Í
+//	5£º¾­¼Ã²ÕÆ±¼Û
+//	6£ºº½ÏßÊÇ·ñÉæ¼°ÃÀ¹ú
+//	7£ºĞĞÀîĞòºÅ
+//	8£ºÖØÁ¿
+//	9£º³¤
+//	10£º¿í
+//	11£º¸ß
+//	12£ºÔ¤²âÖµ
     @DataProvider(name="usecase")
     public Object[][] UseCase(){
-        return new Object[][]{
-                {1,0,0,0,1000,0,1,40,40,40,40,0},
-                {2,0,0,0,1000,0,1,50,40,40,40,150},
-                {3,0,0,0,1000,0,1,40,40,100,40,-1},
-                {4,0,1,0,1000,0,1,40,40,40,40,150},
-                {5,1,0,0,1000,1,1,45,40,40,40,3000},
-                {6,1,0,0,1000,0,1,45,40,40,40,-1},
-                {7,1,0,0,1000,1,1,32,40,40,100,1000},
-                {8,1,0,0,1000,1,1,32,40,100,200,-1},
-                {9,1,4,0,1000,1,1,10,30,35,40,0},
-                {10,1,4,0,1000,1,1,10,40,40,40,-2},
-                {11,1,4,0,1000,1,1,11,30,35,40,-2}
-        };
+        in_out io=new in_out();
+        String path = "test.csv";
+        if(path=="")
+        {
+            return new Object[][]{
+                    {1,0,0,0,1000,0,1,40,40,40,40,0},
+                    {2,0,0,0,1000,0,1,50,40,40,40,150},
+                    {3,0,0,0,1000,0,1,40,40,100,40,-1},
+                    {4,0,1,0,1000,0,1,40,40,40,40,150},
+                    {5,1,0,0,1000,1,1,45,40,40,40,3000},
+                    {6,1,0,0,1000,0,1,45,40,40,40,-1},
+                    {7,1,0,0,1000,1,1,32,40,40,100,1000},
+                    {8,1,0,0,1000,1,1,32,40,100,200,-1},
+                    {9,1,4,0,1000,1,1,10,30,35,40,0},
+                    {10,1,4,0,1000,1,1,10,40,40,40,-2},
+                    {11,1,4,0,1000,1,1,11,30,35,40,-2}
+            };
+        }
+        else
+        {
+            List<String[]> allData = io.readCSV(path);
+            Object[][] data = new Object[allData.size()][12];
+            for(int i = 0; i < allData.size(); i++)
+            {
+                String item[] = allData.get(i);
+                for(int j=0;j<12;j++)
+                {
+                    if(j==0||j==1||j==2||j==3||j==5||j==6)
+                        data[i][j]=Integer.parseInt(item[j]);
+                    else
+                        data[i][j]=Float.parseFloat(item[j]);
+                }
+            }
+            return data;
+        }
     }
     
     @Test(dataProvider="usecase")
-    public void testCase(int id, int flighttype, int seattype, int special, int eairfare, int isusa, int no, float weight, float length, float width, float height, float expectresult){
-        System.out.println("case:" + id);
-        System.out.println("Navigation area:" + flighttype);
-        System.out.println("Cabin or seat:" + seattype);
-        System.out.println("Special passenger:" + special);
-        System.out.println("Economy fare:" + eairfare);
-        System.out.println("Contain USA:" + isusa);
-        System.out.println("Baggage number:" + no);
-        System.out.println("Weight(KG):" + weight);
-        System.out.println("Length(cm):" + length);
-        System.out.println("Wide(cm):" + width);
-        System.out.println("Height(cm):" + height);
-        System.out.println("Expect value:" + id);
-        System.out.println("------------------------------------");
+    public void verifyUser(int id, int flighttype, int seattype, int special, float eairfare, int isusa, int no, float weight, float length, float width, float height, float expectresult){
 
         in_out io=new in_out();
-        File fileid = new File("./iddata.txt");//æ˜¯å¦æ˜¯æ–°çš„ç”¨ä¾‹
+        File fileid = new File("./iddata.txt");//ÊÇ·ñÊÇĞÂµÄÓÃÀı
         String sid="";
-        File file = new File("./specialdata.txt");//ä¿å­˜æ˜¯å¦ä½¿ç”¨ç‰¹æ®Šè¡Œæé¢
+        File file = new File("./specialdata.txt");//±£´æÊÇ·ñÊ¹ÓÃÌØÊâĞĞÀî¶î
         String s="";
         try {
             sid=io.readTxtFile(fileid);
@@ -84,6 +94,8 @@ public class SimpleTestTest {
         }
         if(id!=Integer.parseInt(sid))
         {
+            System.out.println("******************************");
+            System.out.println("case:" + id);
             this.person=new Person(flighttype,seattype,special,eairfare,isusa);
             this.cal=new Calculation(this.person);
             try {
@@ -96,6 +108,11 @@ public class SimpleTestTest {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            System.out.println("Navigation area:" + flighttype);
+            System.out.println("Cabin or seat:" + seattype);
+            System.out.println("Special passenger:" + special);
+            System.out.println("Economy fare:" + eairfare);
+            System.out.println("Contain USA:" + isusa);
         }
         else
         {
@@ -119,5 +136,13 @@ public class SimpleTestTest {
         }
 
         Assert.assertEquals(actualresult, expectresult, "Not equals: ");
+
+        System.out.println("Baggage number:" + no);
+        System.out.println("Weight(KG):" + weight);
+        System.out.println("Length(cm):" + length);
+        System.out.println("Wide(cm):" + width);
+        System.out.println("Height(cm):" + height);
+        System.out.println("Expect value:" + id);
+        System.out.println("----------------");
     }
 }
