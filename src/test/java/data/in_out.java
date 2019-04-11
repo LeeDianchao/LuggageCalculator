@@ -1,6 +1,8 @@
 package data;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class in_out {
 	public in_out()
@@ -86,12 +88,31 @@ public class in_out {
         }
     }
 
-
-    /*
-    public static void main(String[] args) throws Exception{
-        File file = new File("D:\\123.txt");
-        createFile(file);
-        System.out.println(readTxtFile(file));
-        writeTxtFile("666",file);
-    }*/
+    /**
+     * 读取CSV
+     */
+    public List<String[]> readCSV(String path) {
+        File csv = new File(path);  // CSV文件路径
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(csv));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        String line = "";
+        String everyLine = "";
+        List<String[]> allString = new ArrayList<String[]>();
+        try {
+            while ((line = br.readLine()) != null)  //读取到的内容给line变量
+            {
+                everyLine = line;
+                //System.out.println(everyLine);
+                String item[] = everyLine.split(",");
+                allString.add(item);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return allString;
+    }
 }  
