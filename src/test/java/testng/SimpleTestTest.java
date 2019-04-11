@@ -28,18 +28,18 @@ public class SimpleTestTest {
         System.out.println("*****Test over*****");
     }
     
-//  1£º²âÊÔÓÃÀıĞòºÅ
-//	2£ºº½Çø
-//	3£º²ÕÊÒ×ùÎ»
-//	4£ºÌØ±ğ³Ë¿Í
-//	5£º¾­¼Ã²ÕÆ±¼Û
-//	6£ºº½ÏßÊÇ·ñÉæ¼°ÃÀ¹ú
-//	7£ºĞĞÀîĞòºÅ
-//	8£ºÖØÁ¿
-//	9£º³¤
-//	10£º¿í
-//	11£º¸ß
-//	12£ºÔ¤²âÖµ
+//  1ï¼šæµ‹è¯•ç”¨ä¾‹åºå·
+//	2ï¼šèˆªåŒº
+//	3ï¼šèˆ±å®¤åº§ä½
+//	4ï¼šç‰¹åˆ«ä¹˜å®¢
+//	5ï¼šç»æµèˆ±ç¥¨ä»·
+//	6ï¼šèˆªçº¿æ˜¯å¦æ¶‰åŠç¾å›½
+//	7ï¼šè¡Œæåºå·
+//	8ï¼šé‡é‡
+//	9ï¼šé•¿
+//	10ï¼šå®½
+//	11ï¼šé«˜
+//	12ï¼šé¢„æµ‹å€¼
     @DataProvider(name="usecase")
     public Object[][] UseCase(){
         in_out io=new in_out();
@@ -83,9 +83,9 @@ public class SimpleTestTest {
     public void verifyUser(int id, int flighttype, int seattype, int special, float eairfare, int isusa, int no, float weight, float length, float width, float height, float expectresult){
 
         in_out io=new in_out();
-        File fileid = new File("./iddata.txt");//ÊÇ·ñÊÇĞÂµÄÓÃÀı
+        File fileid = new File("./iddata.txt");//æ˜¯å¦æ˜¯æ–°çš„ç”¨ä¾‹
         String sid="";
-        File file = new File("./specialdata.txt");//±£´æÊÇ·ñÊ¹ÓÃÌØÊâĞĞÀî¶î
+        File file = new File("./specialdata.txt");//ä¿å­˜æ˜¯å¦ä½¿ç”¨ç‰¹æ®Šè¡Œæé¢
         String s="";
         try {
             sid=io.readTxtFile(fileid);
@@ -142,7 +142,7 @@ public class SimpleTestTest {
         System.out.println("Length(cm):" + length);
         System.out.println("Wide(cm):" + width);
         System.out.println("Height(cm):" + height);
-        System.out.println("Expect value:" + id);
+        System.out.println("Expect value:" + expectresult);
         System.out.println("----------------");
     }
 }
