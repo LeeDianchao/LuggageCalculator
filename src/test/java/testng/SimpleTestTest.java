@@ -1,5 +1,6 @@
 package testng;
 
+import data.in_out;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -10,7 +11,11 @@ import calculation.Calculation;
 import data.Luggage;
 import data.Person;
 
+import java.io.File;
+
 public class SimpleTestTest {
+    private Person person;
+    private Calculation cal;
 	@BeforeClass
     public void setUp() {
 		System.out.println("*****TestNG*****");
@@ -22,18 +27,18 @@ public class SimpleTestTest {
         System.out.println("*****Test over*****");
     }
     
-//  1ï¼šæµ‹è¯•ç”¨ä¾‹åºå·
-//	2ï¼šèˆªåŒº
-//	3ï¼šèˆ±å®¤åº§ä½
-//	4ï¼šç‰¹åˆ«ä¹˜å®¢
-//	5ï¼šç»æµèˆ±ç¥¨ä»·
-//	6ï¼šèˆªçº¿æ˜¯å¦æ¶‰åŠç¾å›½
-//	7ï¼šè¡Œæåºå·
-//	8ï¼šé‡é‡
-//	9ï¼šé•¿
-//	10ï¼šå®½
-//	11ï¼šé«˜
-//	12ï¼šé¢„æµ‹å€¼
+//  1£º²âÊÔÓÃÀıĞòºÅ
+//	2£ºº½Çø
+//	3£º²ÕÊÒ×ùÎ»
+//	4£ºÌØ±ğ³Ë¿Í
+//	5£º¾­¼Ã²ÕÆ±¼Û
+//	6£ºº½ÏßÊÇ·ñÉæ¼°ÃÀ¹ú
+//	7£ºĞĞÀîĞòºÅ
+//	8£ºÖØÁ¿
+//	9£º³¤
+//	10£º¿í
+//	11£º¸ß
+//	12£ºÔ¤²âÖµ
     @DataProvider(name="usecase")
     public Object[][] UseCase(){
         return new Object[][]{
@@ -48,7 +53,6 @@ public class SimpleTestTest {
                 {9,1,4,0,1000,1,1,10,30,35,40,0},
                 {10,1,4,0,1000,1,1,10,40,40,40,-2},
                 {11,1,4,0,1000,1,1,11,30,35,40,-2}
-                
         };
     }
     
@@ -68,9 +72,52 @@ public class SimpleTestTest {
         System.out.println("Expect value:" + id);
         System.out.println("------------------------------------");
 
-        Person person = new Person(flighttype,seattype,special,eairfare,isusa);
-        Calculation cal = new Calculation(person);
-        float actualresult = cal.caculate(new Luggage(no,weight,length,width,height));	
+        in_out io=new in_out();
+        File fileid = new File("./iddata.txt");//ÊÇ·ñÊÇĞÂµÄÓÃÀı
+        String sid="";
+        File file = new File("./specialdata.txt");//±£´æÊÇ·ñÊ¹ÓÃÌØÊâĞĞÀî¶î
+        String s="";
+        try {
+            sid=io.readTxtFile(fileid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(id!=Integer.parseInt(sid))
+        {
+            this.person=new Person(flighttype,seattype,special,eairfare,isusa);
+            this.cal=new Calculation(this.person);
+            try {
+                io.writeTxtFile(Integer.toString(id), fileid);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                io.writeTxtFile(Integer.toString(0), file);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            this.person=new Person(flighttype,seattype,special,eairfare,isusa);
+            this.cal=new Calculation(this.person);
+            try {
+                s=io.readTxtFile(file);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            this.cal.setisusespecial(Integer.parseInt(s));
+        }
+
+        float actualresult=this.cal.caculate(new Luggage(no,weight,length,width,height));
+
+        try {
+            //System.out.println(this.cal.getisusespecial());
+            io.writeTxtFile(Integer.toString(this.cal.getisusespecial()), file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         Assert.assertEquals(actualresult, expectresult, "Not equals: ");
     }
 }
