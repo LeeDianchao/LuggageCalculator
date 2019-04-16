@@ -8,8 +8,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class Test1 {
-    private Person person;
-    private Calculation cal;
     @BeforeClass
     public void setUp() {
         System.out.println("*****TestNG*****");
