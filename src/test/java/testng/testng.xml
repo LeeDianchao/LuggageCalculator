@@ -9,6 +9,11 @@
                     <include name="test0"/>
                 </methods>
             </class>
+            <class name="testng.Test1">
+                <methods>
+                    <include name="test1"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>
