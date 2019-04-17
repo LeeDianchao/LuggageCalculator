@@ -22,7 +22,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>src/test/java/testng/${xmlFileName}</suiteXmlFile>
+                        <suiteXmlFile>${xmlFileName}</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
                 <version>2.4</version>
